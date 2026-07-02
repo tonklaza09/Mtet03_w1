@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>iPhone Calculator</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.calculator{
+    background:#000;
+    padding:20px;
+    border-radius:35px;
+    width:350px;
+    box-shadow:0 0 30px rgba(255,255,255,.1);
+}
+
+#display{
+    width:100%;
+    height:90px;
+    border:none;
+    background:#000;
+    color:white;
+    font-size:50px;
+    text-align:right;
+    padding:10px;
+    outline:none;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+button{
+    border:none;
+    border-radius:50%;
+    height:70px;
+    font-size:28px;
+    cursor:pointer;
+    color:white;
+}
+
+.gray{
+    background:#a5a5a5;
+    color:black;
+}
+
+.dark{
+    background:#333;
+}
+
+.orange{
+    background:#ff9500;
+}
+
+.zero{
+    grid-column:span 2;
+    border-radius:40px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="calculator">
+
+<input id="display" readonly value="0">
+
+<div class="buttons">
+
+<button class="gray" onclick="clearDisplay()">AC</button>
+<button class="gray" onclick="plusMinus()">±</button>
+<button class="gray" onclick="percent()">%</button>
+<button class="orange" onclick="append('/')">÷</button>
+
+<button class="dark" onclick="append('7')">7</button>
+<button class="dark" onclick="append('8')">8</button>
+<button class="dark" onclick="append('9')">9</button>
+<button class="orange" onclick="append('*')">×</button>
+
+<button class="dark" onclick="append('4')">4</button>
+<button class="dark" onclick="append('5')">5</button>
+<button class="dark" onclick="append('6')">6</button>
+<button class="orange" onclick="append('-')">−</button>
+
+<button class="dark" onclick="append('1')">1</button>
+<button class="dark" onclick="append('2')">2</button>
+<button class="dark" onclick="append('3')">3</button>
+<button class="orange" onclick="append('+')">+</button>
+
+<button class="dark zero" onclick="append('0')">0</button>
+<button class="dark" onclick="append('.')">.</button>
+<button class="orange" onclick="calculate()">=</button>
+
+</div>
+
+</div>
+
+<script>
+
+let expression="";
+
+function update(){
+    document.getElementById("display").value=expression||"0";
+}
+
+function append(value){
+    expression+=value;
+    update();
+}
+
+function clearDisplay(){
+    expression="";
+    update();
+}
+
+function calculate(){
+    try{
+        expression=eval(expression).toString();
+    }catch{
+        expression="Error";
+    }
+    update();
+}
+
+function percent(){
+    if(expression!=""){
+        expression=(eval(expression)/100).toString();
+        update();
+    }
+}
+
+function plusMinus(){
+    if(expression!=""){
+        expression=(-eval(expression)).toString();
+        update();
+    }
+}
+
+</script>
+
+</body>
+</html>
